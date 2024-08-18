@@ -1,4 +1,5 @@
 const controllers = require("../controllers");
+const { tokenValidation } = require("../middleware");
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -15,6 +16,7 @@ module.exports = (app) => {
   //survey routes
   router.get(
     "/refactor-1",
+    tokenValidation,
     controllers.survey.refactoreMe1
   );
 
@@ -25,7 +27,8 @@ module.exports = (app) => {
 
   //attacks route
   router.get(
-    "/attacks", 
+    "/attacks",
+    tokenValidation, 
     controllers.attacks.getData
   )
 
