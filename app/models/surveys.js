@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const db = require('./database');
-const { DataTypes } = require('sequelize/types/index.js');
 
 const Surveys = db.sequelize.define('Surveys', {
     id: {

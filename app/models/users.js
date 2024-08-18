@@ -70,6 +70,16 @@ const Users = db.sequelize.define('Users', {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
+  username: {
+    type: DataTypes.STRING(100),
+    unique: true,
+    allowNull: true,
+
+  },
+  password: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
   cuurentLeave: {
     type: DataTypes.INTEGER,
     allowNull: true,

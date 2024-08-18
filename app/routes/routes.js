@@ -23,9 +23,21 @@ module.exports = (app) => {
     controllers.survey.refactoreMe2
   );
 
+  //attacks route
   router.get(
     "/attacks", 
     controllers.attacks.getData
+  )
+
+  //user route
+  router.post(
+    "/register", 
+    controllers.users.register
+  )
+
+  router.post(
+    "/login", 
+    controllers.users.login
   )
 
   app.use("/api/data", router);

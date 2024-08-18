@@ -1,9 +1,6 @@
 const WebSocket = require("ws");
 const axios = require("axios");
 const db = require('../models/database')
-const redis = require('redis')
-const { promisify } = require('util');
-const { get } = require("http");
 
 const insertAttacks = async (data) => {
   // insert data to database
@@ -21,7 +18,6 @@ const insertAttacks = async (data) => {
   return
 }
 
-
 exports.callmeWebSocket = async (server, redisClient) => {
   const wss = new WebSocket.Server({ server });
   await redisClient.connect();
@@ -34,11 +30,11 @@ exports.callmeWebSocket = async (server, redisClient) => {
         //get data from redis
         const cacheKey = "attacksData:1"
         const cachedData = await redisClient.get(cacheKey)
-        let isCached = false
+        let isDataCached = false
         let attacks
         
         if (cachedData){
-          isCached = true
+          isDataCached = true
           attacks = JSON.parse(cachedData)
 
           console.log('Data get from cache');
@@ -57,7 +53,7 @@ exports.callmeWebSocket = async (server, redisClient) => {
         await insertAttacks(attacks)
 
         ws.send(JSON.stringify({
-          isCached, 
+          isDataCached, 
           message: "Data successfully insert to DB"
         }))
       } catch (error) {
