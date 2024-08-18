@@ -4,6 +4,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
+const http = require('http');
+const { callmeWebSocket } = require("./app/controllers/callWebsocketController");
+const { createClient } = require('redis')
 
 const corsOptions = {
   origin: ["http://localhost:8080"],
@@ -42,3 +45,16 @@ const PORT = process.env.PORT || 7878;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+const server = http.createServer();
+server.listen(8080, () => {
+  console.log('WebSocket server is running on ws://localhost:8080');
+});
+
+const redisClient = createClient()
+redisClient.on('error', err => console.log('Redis Client Error', err));
+
+//call websocket fethed API
+callmeWebSocket(server, redisClient)
+
+

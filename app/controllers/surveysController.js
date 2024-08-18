@@ -16,16 +16,17 @@ exports.refactoreMe1 = async (req, res) => {
     );
 
     res.status(200).send({
-      statusCode: 200,
       success: true,
+      statusCode: 200,
+      message: "success",
       data: totalSurveyValue,
     });
   } catch (err) {
     console.error(err);
     res.status(500).send({
-      statusCode: 500,
       success: false,
-      message: "Error retrieving survey data.",
+      statusCode: 500,
+      message: "error retrieving survey data.",
     });
   }
 };

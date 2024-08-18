@@ -23,5 +23,10 @@ module.exports = (app) => {
     controllers.survey.refactoreMe2
   );
 
+  router.get(
+    "/attacks", 
+    controllers.attacks.getData
+  )
+
   app.use("/api/data", router);
 };
