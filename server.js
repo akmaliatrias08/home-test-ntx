@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models/database");
 
-db.sequelize.sync();
+db.sequelize.sync({logging: false});
 
 // never enable the code below in production
 // force: true will drop the table if it already exists
@@ -52,9 +52,12 @@ server.listen(8080, () => {
 });
 
 const redisClient = createClient()
+redisClient.connect();
 redisClient.on('error', err => console.log('Redis Client Error', err));
 
 //call websocket fethed API
 callmeWebSocket(server, redisClient)
+
+module.exports = app;
 
 

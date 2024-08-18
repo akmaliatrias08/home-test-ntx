@@ -4,13 +4,12 @@ const db = require("../models/database");
 exports.refactoreMe1 = async (req, res) => {
   try {
     const [results] = await db.sequelize.query(`SELECT * FROM "surveys"`);
-    console.log(results)
     const surveyValue = Array.from({ length: 10 }, () => []);
 
     results.forEach((e, index) => {
       surveyValue[index].push(...e.values);
     });
-
+    
     const totalSurveyValue = surveyValue.map(indexArray => 
       indexArray.reduce((a, b) => a + b, 0) / 10
     );

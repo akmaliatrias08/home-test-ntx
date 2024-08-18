@@ -20,7 +20,6 @@ const insertAttacks = async (data) => {
 
 exports.callmeWebSocket = async (server, redisClient) => {
   const wss = new WebSocket.Server({ server });
-  await redisClient.connect();
 
   wss.on("connection", (ws) => {
     // Function to fetch data from the API
@@ -84,7 +83,7 @@ exports.getData = async (req, res) => {
       FROM attacks GROUP BY sourceCountry ORDER BY total DESC`, {
         type: db.sequelize.QueryTypes.SELECT
     })
-
+    
     let sourceCountries = []
     let totalByCountries = []
 
